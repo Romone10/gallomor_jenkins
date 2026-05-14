@@ -2,55 +2,75 @@ package ch.zhaw.iwi.devops.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ToDoControllerTest {
-    
-    @Test
-    public void testCreate() {
-        var controller = new ToDoController();
-        var todo = new ToDo(1, "t", "d");
-        controller.createTodo(1, todo);
-        assertEquals(1, controller.count());
-        assertEquals(1, controller.todo().size());
-        controller.createTodo(todo);
-        assertEquals(2, controller.count());
-        assertEquals(2, controller.todo().size());
+class ToDoControllerTest {
+
+    private ToDoController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new ToDoController();
+        controller.init();
     }
 
     @Test
-    public void testTest() {
-        var controller = new ToDoController();
-        var result = controller.test();
-<<<<<<< HEAD
+    void testEndpointReturnsAppText() {
+        String result = controller.test();
+
         assertTrue(result.contains("app"));
-=======
-        assertTrue(result.contains("running"));
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
     }
 
     @Test
-    public void testPing() {
-        var controller = new ToDoController();
-        var result = controller.ping();
-        assertTrue(result.startsWith("{"));
-        assertTrue(result.endsWith("}"));
+    void countReturnsInitialNumberOfTodos() {
+        int result = controller.count();
+
+        assertEquals(5, result);
     }
 
     @Test
-    public void testDelete() {
-        var controller = new ToDoController();
-        var todo = mock(ToDo.class);
-        when(todo.getId()).thenReturn(1);
+    void getAllTodosReturnsInitialTodos() {
+        List<ToDo> result = controller.getAllTodos();
+
+        assertEquals(5, result.size());
+    }
+
+    @Test
+    void createTodoAddsNewTodo() {
+        ToDo todo = new ToDo(0, "Test Todo", "Test Description");
+
         controller.createTodo(todo);
-        assertEquals(1, controller.count());
-        var result = controller.getTodo(1);
-        assertEquals(1, result.getId());
-        controller.deleteTodo(1);
+
+        assertEquals(6, controller.count());
+    }
+
+    @Test
+    void deleteTodoRemovesTodo() {
+        ToDo deletedTodo = controller.deleteTodo(1);
+
+        assertEquals(4, controller.count());
+        assertEquals("Neuer Job", deletedTodo.getTitle());
+    }
+
+    @Test
+    void deleteAllTodosRemovesEverything() {
+        String result = controller.deleteAllTodos();
+
+        assertEquals("All todos deleted", result);
         assertEquals(0, controller.count());
     }
 
+    @Test
+    void resetTodosRestoresInitialData() {
+        controller.deleteAllTodos();
+
+        String result = controller.resetTodos();
+
+        assertEquals("Init data reset complete", result);
+        assertEquals(5, controller.count());
+    }
 }
