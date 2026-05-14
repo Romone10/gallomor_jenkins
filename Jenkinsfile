@@ -47,7 +47,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'Sonarqube-Frontend', variable: 'TOKEN')]) {
                     nodejs('24.11.1') {
                         dir('frontend') {
-                            sh 'npx sonar-scanner -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.projectKey=gallomor-Frontend -Dsonar.projectName="gallomor-Frontend" -Dsonar.token=$TOKEN'
+                            sh 'npx sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.projectKey=gallomor-Frontend -Dsonar.projectName="gallomor-Frontend" -Dsonar.token=$TOKEN'
                         }
                     }
                 }
