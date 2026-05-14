@@ -15,41 +15,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
-=======
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
 public class ToDoController {
 
-    private Map<Integer, ToDo> todos = new HashMap<Integer, ToDo>();
+    private Map<Integer, ToDo> todos = new HashMap<>();
 
     @EventListener(ApplicationReadyEvent.class)
     public void init() {
-        this.todos.put(1,new ToDo(1, "Neuer Job", "5 DevOps Engineers einstellen"));
-        this.todos.put(2,new ToDo(2, "Geschäftsleitung", "Mit Präsentation von DevOps überzeugen"));
-        this.todos.put(3,new ToDo(3, "Unit Tests", "Neues Projekt mit Unit Tests starten"));
-        this.todos.put(4,new ToDo(4, "Deployment", "Jede Woche!"));
-        this.todos.put(5,new ToDo(5, "Organigramm", "Löschen"));
+        resetInitialData();
         System.out.println("Init Data");
     }
 
     @GetMapping("/test")
     public String test() {
-<<<<<<< HEAD
         return "ToDo app - by gallomor";
-=======
-        return "ToDo app is up and running!";
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
     }
 
     @GetMapping("/services/ping")
     public String ping() {
         String languageCode = "de";
-        return "{ \"status\": \"ok\", \"userId\": \"admin"+ "\", \"languageCode\": \"" + languageCode + "\",\"version\": \"0.0.2" + "\"}";
+        return "{ \"status\": \"ok\", \"userId\": \"admin"
+                + "\", \"languageCode\": \"" + languageCode
+                + "\",\"version\": \"0.0.2" + "\"}";
     }
 
     @GetMapping("/count")
@@ -58,17 +49,21 @@ public class ToDoController {
     }
 
     @GetMapping("/services/todo")
-    public List<PathListEntry<Integer>> todo() {
-        var result = new ArrayList<PathListEntry<Integer>>();
+    public List<PathListEntry> todo() {
+        var result = new ArrayList<PathListEntry>();
+
         for (var todo : this.todos.values()) {
-            var entry = new PathListEntry<Integer>();
+            var entry = new PathListEntry();
             entry.setKey(todo.getId(), "todoKey");
             entry.setName(todo.getTitle());
             entry.getDetails().add(todo.getDescription());
             entry.setTooltip(todo.getDescription());
             result.add(entry);
         }
-        return result.stream().sorted(Comparator.comparing(PathListEntry::getName)).toList();
+
+        return result.stream()
+                .sorted(Comparator.comparing(PathListEntry::getName))
+                .toList();
     }
 
     @GetMapping("/services/todo/{key}")
@@ -78,13 +73,16 @@ public class ToDoController {
 
     @PostMapping("/services/todo")
     public void createTodo(@RequestBody ToDo todo) {
-        var newId = this.todos.keySet().stream().max(Comparator.naturalOrder()).orElse(0) + 1;
+        var newId = this.todos.keySet().stream()
+                .max(Comparator.naturalOrder())
+                .orElse(0) + 1;
+
         todo.setId(newId);
         this.todos.put(newId, todo);
     }
 
     @PutMapping("/services/todo/{key}")
-    public void createTodo(@PathVariable("key") Integer key, @RequestBody ToDo todo) {
+    public void updateTodo(@PathVariable("key") Integer key, @RequestBody ToDo todo) {
         todo.setId(key);
         this.todos.put(key, todo);
     }
@@ -94,7 +92,6 @@ public class ToDoController {
         return this.todos.remove(key);
     }
 
-<<<<<<< HEAD
     @GetMapping("/services/todo/all")
     public List<ToDo> getAllTodos() {
         return this.todos.values().stream()
@@ -108,8 +105,9 @@ public class ToDoController {
 
         return this.todos.values().stream()
                 .filter(todo ->
-                        todo.getTitle().toLowerCase().contains(searchText) ||
-                        todo.getDescription().toLowerCase().contains(searchText))
+                        todo.getTitle().toLowerCase().contains(searchText)
+                                || todo.getDescription().toLowerCase().contains(searchText)
+                )
                 .sorted(Comparator.comparing(ToDo::getId))
                 .toList();
     }
@@ -122,16 +120,16 @@ public class ToDoController {
 
     @PostMapping("/services/todo/reset")
     public String resetTodos() {
-        this.todos.clear();
-        this.todos.put(1,new ToDo(1, "Neuer Job", "5 DevOps Engineers einstellen"));
-        this.todos.put(2,new ToDo(2, "Geschäftsleitung", "Mit Präsentation von DevOps überzeugen"));
-        this.todos.put(3,new ToDo(3, "Unit Tests", "Neues Projekt mit Unit Tests starten"));
-        this.todos.put(4,new ToDo(4, "Deployment", "Jede Woche!"));
-        this.todos.put(5,new ToDo(5, "Organigramm", "Löschen"));
+        resetInitialData();
         return "Init data reset complete";
     }
-}
-=======
 
+    private void resetInitialData() {
+        this.todos.clear();
+        this.todos.put(1, new ToDo(1, "Neuer Job", "5 DevOps Engineers einstellen"));
+        this.todos.put(2, new ToDo(2, "Geschäftsleitung", "Mit Präsentation von DevOps überzeugen"));
+        this.todos.put(3, new ToDo(3, "Unit Tests", "Neues Projekt mit Unit Tests starten"));
+        this.todos.put(4, new ToDo(4, "Deployment", "Jede Woche!"));
+        this.todos.put(5, new ToDo(5, "Organigramm", "Löschen"));
+    }
 }
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
