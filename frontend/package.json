@@ -31,11 +31,7 @@
   },
   "dependencies": {
     "path-framework": "0.8.0-beta.8",
-<<<<<<< HEAD
     "serve": "^14.2.6"
-=======
-    "serve": "14.2.4"
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
   },
   "devDependencies": {
     "chromedriver": "130.0.2",

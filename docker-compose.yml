@@ -1,10 +1,6 @@
 services:
   devopsdemo:
-<<<<<<< HEAD
     image: gallomor/devopsdemo
-=======
-    image: mosazhaw/devopsdemo
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
     container_name: devopsdemo
     ports:
       - "8088:8080"

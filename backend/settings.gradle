@@ -1,12 +1,5 @@
 plugins {
-<<<<<<< HEAD
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
-}
-
-rootProject.name = 'demo'
-=======
     id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
 rootProject.name = 'demo'
->>>>>>> ffd0a9bbeee353cc8bea75b0332aef20ad0a97c0
