@@ -5,17 +5,17 @@
   "keywords": [
     "DevOps"
   ],
-  "homepage": "https://github.com/devopszhaw/DevOps-04-DevOpsDemo",
+  "homepage": "https://github.com/Romone10/gallomor_jenkins",
   "bugs": {
-    "url": "https://github.com/devopszhaw/DevOps-04-DevOpsDemo/issues"
+    "url": "https://github.com/Romone10/gallomor_jenkins/issues"
   },
   "license": "LGPL-3.0",
   "author": {
-    "name": "Adrian Moser"
+    "name": "Moreno Gallo"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/devopszhaw/DevOps-04-DevOpsDemo.git"
+    "url": "https://github.com/Romone10/gallomor_jenkins.git"
   },
   "engines": {
     "node": ">=24",

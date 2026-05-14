@@ -46,7 +46,7 @@ services:
       - DISPLAY_CONTAINER_NAME=firefox
       - SE_NODE_GRID_URL=http://selenium-hub:4444
       - SE_VIDEO_FILE_NAME=auto
-      
+
   selenium-hub:
     image: selenium/hub:4.26.0-20241101
     container_name: selenium-hub
