@@ -37,7 +37,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'Sonarqube-Backend', variable: 'TOKEN')]) {
                     dir('backend') {
-                        sh './gradlew sonar -Dsonar.projectKey=gallomor-Backend -Dsonar.projectName="gallomor-Backend" -Dsonar.host.url=http://sonarqube:9000 -Dsonar.token=$TOKEN'
+                        sh './gradlew sonar -Dsonar.projectKey=gallomor-Backend -Dsonar.projectName="gallomor-Backend" -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=$TOKEN'
                     }
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'Sonarqube-Frontend', variable: 'TOKEN')]) {
                     nodejs('24.11.1') {
                         dir('frontend') {
-                            sh 'npx sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.projectKey=gallomor-Frontend -Dsonar.projectName="gallomor-Frontend" -Dsonar.token=$TOKEN'
+                            sh 'npx sonar-scanner -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.projectKey=gallomor-Frontend -Dsonar.projectName="gallomor-Frontend" -Dsonar.login=$TOKEN'
                         }
                     }
                 }
