@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = "/opt/jdks/jdk-25"
+        DOCKER_HOST = 'tcp://host.docker.internal:2375'
+            DOCKER_API_VERSION = "1.43"
     }
 
     stages {
